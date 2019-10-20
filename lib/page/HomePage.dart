@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 void main() => runApp(MaterialApp(
       home: HomePage(),
@@ -13,36 +14,48 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final String host ='http://35.201.158.20/wadone/get.php';
+  final String url = 'https://jsonplaceholder.typicode.com/posts';
   @override
-  void initState(){
-    super.initState();
-  }
-  getData(){
-    return http.get(host);
-    }
-
-    @override
-    Widget build(BuildContext context) {
-      getData();
+  Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder(
-        future: getData(),
-        builder:(context,snap){
-          if(!snap.hasData){
-            return Container();
-          }
+        body: StreamBuilder(
+            stream: Firestore.instance.collection('post').snapshots(),
+            builder: (context, snap) {
+              if (snap.hasData) {
+                List<DocumentSnapshot> dsList = snap.data.documents;
+                return ListView.builder(
+                    itemCount: dsList.length,
+                    itemBuilder: (context, index) {
+                      DocumentSnapshot doc = dsList[index];
+                      return Container(
+                        child: ListTile(
+                          title: Text(doc['title']),
+                          subtitle: Text(doc['body']),
+                          leading: Builder(builder: (BuildContext context) {
+                            return IconButton(
+                              icon: const Icon(Icons.delete,),
+                              onPressed: (){
+                                Firestore.instance.collection('post').document(doc.documentID).delete();
+                                },
+                                );
+                                }),
+                        ),
+                      );
+                    });}
+              return Container(
+                child: Text('loading wrong'),
+              );
+            }),
 
-          List datas = jsonDecode(snap.data.body);
-         return ListView.builder(
-            itemCount: datas.length,
-            itemBuilder: (context, idx){
-              var data = datas[idx];
-              return ListTile(title: Text(data['id']),subtitle: Text(data['username']),);
-            });
-        },
-      )
-    );
-  }
+        floatingActionButton: FloatingActionButton(
+            child: Icon(Icons.data_usage),
+            onPressed: () async {
+              http.Response response = await http.get(url);
+              List l = jsonDecode(response.body);
+              l.forEach((e) =>
+                  Firestore.instance.collection('/post').document().setData(e));
+            }),
+      );
+      }
   }
   
