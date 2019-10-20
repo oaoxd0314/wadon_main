@@ -13,7 +13,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final String host ='http://35.201.158.20/wadone/data.php';
+  final String host ='http://35.201.158.20/wadone/get.php';
   @override
   void initState(){
     super.initState();
