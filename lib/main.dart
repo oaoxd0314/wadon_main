@@ -5,6 +5,7 @@ import 'package:wadone_main/page/Profile.dart';
 import 'package:wadone_main/page/ActivityPage.dart';
 import 'package:wadone_main/page/SubscriptionPage.dart';
 import 'package:wadone_main/page/NotificationPage.dart';
+import 'package:wadone_main/models/drawer.dart';
 
 void main() => runApp(MyApp());
 
@@ -44,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(),
-      drawer: buildDrawer(),
+      drawer: BuildDrawer(),
       body: _children[_selectedIndex],
       bottomNavigationBar: Theme(
         data:Theme.of(context).copyWith(
@@ -55,18 +56,17 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Widget buildDrawer(){
-    return Drawer(
-      child: new ListView(
-        children: <Widget>[
-          new DrawerHeader(
-            child: new Text("drawerhead"),
-            
-          )
-        ],
-      ) 
-    );
-  }
+  // Widget buildDrawer(){
+  //   return Drawer(
+  //     child: new ListView(
+  //       children: <Widget>[
+  //         new DrawerHeader(
+  //           child: new Text("drawerhead"),
+  //         ),
+  //       ],
+  //     ) 
+  //   );
+  // }
 
   Widget buildAppBar(){
     return AppBar(
