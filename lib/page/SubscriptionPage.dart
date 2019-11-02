@@ -49,6 +49,9 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                 );
               });
         }
+        return Container(
+          child: Text('載入錯誤'),
+        );
       },
     ));
   }
