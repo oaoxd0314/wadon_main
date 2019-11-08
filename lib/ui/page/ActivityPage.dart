@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../models/card.dart' as card;
+import '../build/card.dart' as card;
 import '../active/activeDetailPage.dart';
 
 class ActivityPage extends StatefulWidget {

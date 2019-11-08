@@ -68,15 +68,16 @@ class _ProfileState extends State<Profile>{
     return new Scaffold
     (
       body: new Container
-      (
-        padding: EdgeInsets.all(16.0), //與邊界間隔
-        child:new Form
-        (
+      ( 
+        padding: EdgeInsets.only(top: 200.0,right: 10.0, left:  10.0), //與邊界間隔
+        child:new Form 
+        
+        ( 
           key: formKey,
           child: new Column
-          (
+          ( 
             crossAxisAlignment: CrossAxisAlignment.stretch, //樣式
-            children: buildInputs() + buildSubmitBottons()
+            children: buildInputs1() +buildInputs() + buildSubmitBottons()
           ),
         )
       ),
@@ -100,7 +101,11 @@ class _ProfileState extends State<Profile>{
               ),
     ];
   }
-
+ List<Widget> buildInputs1(){
+    return[
+           Text('wadon高科活動平台', textAlign: TextAlign.center,style: TextStyle(fontSize: 24.0),),
+    ];
+  }
   List<Widget> buildSubmitBottons(){
     if(_formType == FormType.login){
     return [

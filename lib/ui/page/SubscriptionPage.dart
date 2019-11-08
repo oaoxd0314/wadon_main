@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:wadone_main/club/clubpage.dart';
+import 'package:wadone_main/ui/club/clubpage.dart';
 
 class SubscriptionPage extends StatefulWidget {
   @override
@@ -8,7 +8,7 @@ class SubscriptionPage extends StatefulWidget {
 }
 
 class _SubscriptionPageState extends State<SubscriptionPage> {
-  getdata() {}
+  getdata() {}  
 
   @override
   Widget build(BuildContext context) {
