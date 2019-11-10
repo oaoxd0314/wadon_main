@@ -12,11 +12,24 @@ class PageBloc with ChangeNotifier {
     init();
   }
   init() async {
-    await getData();
+    await addPage();
+    await addPage();
+    await getPage();
   }
 
-  Future getData() async {
+  Future getPage() async {
     _items = await _pageRespository.getpage();
     notifyListeners();
+  }
+
+  Future addPage() async {
+    await _pageRespository.addPage();
+    await getPage();
+    notifyListeners();
+  }
+
+  Future clearPage() async{
+    await _pageRespository.clearPage();
+    await getPage();
   }
 }

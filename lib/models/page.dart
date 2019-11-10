@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+/// put something active need
+/// it will show on page
 @immutable
 class Page {
   final int title;

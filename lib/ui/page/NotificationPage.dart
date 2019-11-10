@@ -28,7 +28,7 @@ class _NotificationPageState extends State<NotificationPage>{
                           dotSize: 6.0,
                           dotIncreasedColor: Colors.blueGrey,
                           dotBgColor: Colors.transparent,
-                          
+                          dotPosition: DotPosition(bottom: -10.0),
                       dotVerticalPadding: 10.0,
                       showIndicator: true,
                       indicatorBgPadding: 7.0,
