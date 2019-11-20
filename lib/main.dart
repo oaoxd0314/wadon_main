@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wadone_main/bloc/pagebloc.dart';
-import 'package:wadone_main/ui/page/HomePage.dart';
+import 'package:wadone_main/ui/page/InitPage.dart';
 
 void main() => runApp(MyApp());
 
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.orange,
         ),
-        home: HomePage(),
+        home: InitPage(),
       ),
     );
   }

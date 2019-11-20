@@ -5,12 +5,12 @@ class FirestoreProvider {
 
 
   Stream<DocumentSnapshot> myGoalList(String documentId) {
-    return _firestore.collection("users").document(documentId).snapshots();
+    return _firestore.collection("club").document(documentId).snapshots();
   }
 
   Stream<QuerySnapshot> pageList() {
     return _firestore
-        .collection("post")
+        .collection("club")
         .snapshots();
   }
 
