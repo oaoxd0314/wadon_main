@@ -33,14 +33,6 @@ class _ActivityPageState extends State<ActivityPage> {
                             ),
                             child: InkWell(
                               borderRadius: BorderRadius.all(Radius.zero),
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ActiveDetailPage(),
-                                  ),
-                                );
-                              },
                               child: ListTile(
                                 title: Text(doc['title']),
                                 subtitle: Text(doc['body']),

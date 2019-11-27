@@ -7,4 +7,8 @@ class Repository {
 
   Stream<QuerySnapshot> pageList() => _firestoreProvider.pageList();
 
+  Stream<QuerySnapshot> actList(String documentId,String actid) => _firestoreProvider.actList(documentId,actid) ;
+
+  Stream<DocumentSnapshot> detailList(String aid,id) => _firestoreProvider.detailList(aid, id);
+
 }
