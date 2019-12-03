@@ -7,8 +7,12 @@ class Repository {
 
   Stream<QuerySnapshot> pageList() => _firestoreProvider.pageList();
 
-  Stream<QuerySnapshot> actList(String documentId,String actid) => _firestoreProvider.actList(documentId,actid) ;
+  Stream<QuerySnapshot> actList(String actid) => _firestoreProvider.actList(actid) ;
 
-  Stream<DocumentSnapshot> detailList(String aid,id) => _firestoreProvider.detailList(aid, id);
+  Future<void> clubadd(String actid,String clubid) =>_firestoreProvider.clubadd(actid,clubid);
 
+  Future<void> changeStatue(String actid,String statue)=> _firestoreProvider.changeStatue(actid, statue);
+
+  Future<void> uploadAct(String clubid,String name,String title,String content,String clublimit,String numlimit,String actid) =>
+   _firestoreProvider.uploadAct(clubid,name,title,content,clublimit,numlimit,actid);
 }

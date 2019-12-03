@@ -14,38 +14,64 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  PageBloc pageBloc;
+
+  void didChangeDependencies() async {
+    super.didChangeDependencies();
+    pageBloc = Provider.of<PageBloc>(context);
+  }
+
+  @override
+  void dispose() {
+    pageBloc.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Consumer<PageBloc>(
-        builder: (context, pageBloc,_)=> 
-        // RefreshIndicator(
-        //   onRefresh: () async {
-        //     await Future.delayed(Duration(seconds: 1));
-        //     await active.increaseNumOfCards(context);
-        //   }, 
-          // child:
-           StreamBuilder(
-            stream: pageBloc.activeList(),
-            builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snap) {
-              if (snap.hasData) {
-                List<DocumentSnapshot> docs = snap.data.documents;
-                List<Active> goalsList = pageBloc.mapToList(docList: docs);
-                if (goalsList.isNotEmpty) {
-                  return buildList(goalsList);
-                } else {
-                  return Text("data doesn't exist");
-                }
-              }
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }),
-      ),
-    );
+        body: 
+        // Consumer<PageBloc>(
+        //     builder: (context, pageBloc, _) =>
+                // RefreshIndicator(
+                //   onRefresh: () async {
+                //     await Future.delayed(Duration(seconds: 1));
+                //     await active.increaseNumOfCards(context);
+                //   },
+                // child:
+                Column(
+                  children: <Widget>[
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text('asdsad'),
+                    Text('asdsad'),
+                    Text('asdsad'),
+                    Text('asdsad'),
+                    Flexible(
+                      child: StreamBuilder(
+                          stream: pageBloc.activeList(),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<QuerySnapshot> snap) {
+                            if (snap.hasData) {
+                              List<DocumentSnapshot> docs = snap.data.documents;
+                              List<Active> goalsList =
+                                  pageBloc.mapToList(docList: docs);
+                              if (goalsList.isNotEmpty) {
+                                return buildList(goalsList);
+                              } else {
+                                return Text("data doesn't exist");
+                              }
+                            }
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }),
+                    ),
+                  ],
+                ));
   }
 }
-
 
 ListView buildList(List<Active> goalsList) {
   return ListView.separated(
@@ -53,7 +79,7 @@ ListView buildList(List<Active> goalsList) {
       itemCount: goalsList.length,
       itemBuilder: (context, index) {
         // final id = goalsList[index].description;
-        final active =goalsList[index]; //catch this active
+        final active = goalsList[index]; //catch this active
         return InkWell(
           child: ListTile(
             title: Text(
@@ -83,17 +109,16 @@ ListView buildList(List<Active> goalsList) {
               },
             ),
           ),
-          onTap: (){
+          onTap: () {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) =>ActiveDetailPage(
-                   active: active, 
+                builder: (context) => ActiveDetailPage(
+                  active: active,
                 ),
               ),
-              );
-          } ,
+            );
+          },
         );
       });
 }
-

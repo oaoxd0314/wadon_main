@@ -26,7 +26,7 @@ class _InitPageState extends State<InitPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold( 
       appBar: buildAppBar(),
       drawer: BuildDrawer(),
       body: _children[_selectedIndex],
