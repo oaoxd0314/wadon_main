@@ -13,12 +13,17 @@ class Managerbloc {
   final _pcontent = BehaviorSubject<String>();
   final _clublimit = BehaviorSubject<String>();
   final _numlimit = BehaviorSubject<String>();
+  final _plocaltion = BehaviorSubject<String>();
+  final _pnote = BehaviorSubject<String>();
   // final _singup = BehaviorSubject<Timestamp>();
   // final _singend = BehaviorSubject<Timestamp>();
   // final _actend = BehaviorSubject<Timestamp>();
   // final _actstart = BehaviorSubject<Timestamp>();
-  // final _statue = BehaviorSubject<String>();
+  final _statue = BehaviorSubject<String>();
   final _showProgress = BehaviorSubject<bool>();  
+
+
+  final _thatclubid = 'nkust_IC';
 
   Observable<String> get pid => _pid.stream;
   Observable<String> get pname => _pname.stream;
@@ -27,11 +32,13 @@ class Managerbloc {
   Observable<String> get pcontent => _pcontent.stream;
   Observable<String> get clublimit => _clublimit.stream;
   Observable<String> get numlimit => _numlimit.stream;
+  Observable<String> get plocaltion => _plocaltion.stream;
+  Observable<String> get pnote => _pnote.stream;
   // Observable<Timestamp> get singup => _singup.stream;
   // Observable<Timestamp> get singend => _singend.stream;
   // Observable<Timestamp> get actend => _actend.stream;
   // Observable<Timestamp> get actstart => _actstart.stream;
-  // Observable<String> get statue => _statue.stream;
+  Observable<String> get statue => _statue.stream;
   Observable<bool> get showProgress => _showProgress.stream;
 
 //change data
@@ -42,6 +49,9 @@ class Managerbloc {
   Function(String) get changepcontent => _pcontent.sink.add;
   Function(String) get changeclublimit => _clublimit.sink.add;
   Function(String) get changenumlimit => _numlimit.sink.add;
+  Function(String) get changeststue => _statue.sink.add;
+  Function(String) get changeplocaltion => _plocaltion.sink.add;
+  Function(String) get changepnote => _pnote.sink.add;
   // Function(Timestamp) get changesingup => _singup.sink.add;
   // Function(Timestamp) get changesingend => _singend.sink.add;
   // Function(Timestamp) get changeactend => _actend.sink.add;
@@ -56,14 +66,33 @@ class Managerbloc {
   //   }
   // });
 
+  Stream<QuerySnapshot> pageList() {
+    return _repository.pageList();
+  }
+
   void submit() {
     _showProgress.sink.add(true);
     _repository.clubadd(_pid.value, _clubid.value);
     _repository.
-    uploadAct(_clubid.value,_pname.value,_ptitle.value,_pcontent.value,_clublimit.value,_numlimit.value,_pid.value)
+    uploadAct(
+      _clubid.value,
+      _pname.value,
+      _ptitle.value,
+      _pcontent.value,
+      _clublimit.value,
+      _numlimit.value,
+      _pid.value,
+      _statue.value,
+      _plocaltion.value,
+      _pnote.value
+      )
         .then((value) {
       _showProgress.sink.add(false);
     });
+  }
+
+  void delete(){
+    
   }
 
 
@@ -84,6 +113,12 @@ class Managerbloc {
     _numlimit.close();
     await _showProgress.drain();
     _showProgress.close();
+    await _statue.drain();
+    _statue.close();
+    await _plocaltion.drain();
+    _plocaltion.close();
+    await _pnote.drain();
+    _pnote.close();
   }
 
   

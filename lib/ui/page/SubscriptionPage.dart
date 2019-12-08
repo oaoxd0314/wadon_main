@@ -59,6 +59,12 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                       Container(margin: EdgeInsets.only(top: 5.0, bottom: 5.0)),
                       numlimitField(),
                       Container(margin: EdgeInsets.only(top: 5.0, bottom: 5.0)),
+                      statueField(),
+                      Container(margin: EdgeInsets.only(top: 5.0, bottom: 5.0)),
+                      plocaltion(),
+                      Container(margin: EdgeInsets.only(top: 5.0, bottom: 5.0)),
+                      pnote(),
+                      Container(margin: EdgeInsets.only(top: 5.0, bottom: 5.0)),
                       // actstartField(),
                       // Container(margin: EdgeInsets.only(top: 5.0, bottom: 5.0)),
                       // actendField(),
@@ -105,6 +111,45 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
           _bloc.submit();
         });
   }
+
+
+  Widget pnote() {
+    return StreamBuilder(
+        stream: _bloc.pnote,
+        builder: (context, AsyncSnapshot<String> snapshot) {
+          return TextField(
+            onChanged: _bloc.changepnote,
+            obscureText: false,
+            decoration: InputDecoration(
+                contentPadding: EdgeInsets.all(10.0),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                hintText: '活動備註',
+                errorText: snapshot.error),
+          );
+        });
+  }
+
+
+Widget plocaltion() {
+    return StreamBuilder(
+        stream: _bloc.plocaltion,
+        builder: (context, AsyncSnapshot<String> snapshot) {
+          return TextField(
+            onChanged: _bloc.changeplocaltion,
+            obscureText: false,
+            decoration: InputDecoration(
+                contentPadding: EdgeInsets.all(10.0),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                hintText: '活動地點',
+                errorText: snapshot.error),
+          );
+        });
+  }
+
 
   Widget idField() {
     return StreamBuilder(
@@ -232,7 +277,27 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
           );
         });
   }
+
+  Widget statueField() {
+    return StreamBuilder(
+        stream: _bloc.statue,
+        builder: (context, AsyncSnapshot<String> snapshot) {
+          return TextField(
+            onChanged: _bloc.changeststue,
+            obscureText: false,
+            decoration: InputDecoration(
+                contentPadding: EdgeInsets.all(10.0),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                hintText: '活動狀態',
+                errorText: snapshot.error),
+          );
+        });
+  }
 }
+
+
 
 //   Widget actstartField() {
 //     return StreamBuilder(

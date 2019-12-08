@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:wadone_main/bloc/pagebloc.dart';
-import 'package:wadone_main/models/active.dart';
+import 'package:wadone_main/models/detail.dart';
 import 'package:wadone_main/ui/active/activeDetailPage.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:carousel_pro/carousel_pro.dart';
+import 'package:wadone_main/ui/page/ActivityPage.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -30,95 +33,172 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: 
-        // Consumer<PageBloc>(
-        //     builder: (context, pageBloc, _) =>
-                // RefreshIndicator(
-                //   onRefresh: () async {
-                //     await Future.delayed(Duration(seconds: 1));
-                //     await active.increaseNumOfCards(context);
-                //   },
-                // child:
-                Column(
-                  children: <Widget>[
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Text('asdsad'),
-                    Text('asdsad'),
-                    Text('asdsad'),
-                    Text('asdsad'),
-                    Flexible(
-                      child: StreamBuilder(
-                          stream: pageBloc.activeList(),
-                          builder: (BuildContext context,
-                              AsyncSnapshot<QuerySnapshot> snap) {
-                            if (snap.hasData) {
-                              List<DocumentSnapshot> docs = snap.data.documents;
-                              List<Active> goalsList =
-                                  pageBloc.mapToList(docList: docs);
-                              if (goalsList.isNotEmpty) {
-                                return buildList(goalsList);
-                              } else {
-                                return Text("data doesn't exist");
-                              }
-                            }
-                            return Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          }),
-                    ),
-                  ],
-                ));
+        resizeToAvoidBottomPadding: false,
+        body: SingleChildScrollView(
+          child: AnimationLimiter(
+            child: Column(
+              children: AnimationConfiguration.toStaggeredList(
+                  duration: const Duration(milliseconds: 375),
+                  childAnimationBuilder: (widget) => SlideAnimation(
+                        horizontalOffset: 50.0,
+                        child: FadeInAnimation(
+                          child: widget,
+                        ),
+                      ),
+                  children: [
+                    buildTextfield(),
+                    buttonGroup(),
+                    buildCarousel(),
+                    body()
+                  ]),
+            ),
+          ),
+        ));
+  }
+
+  Widget body() {
+    return Container(
+        height: 200,
+        child: Column(
+          children: <Widget>[
+            SizedBox(
+              height: 20,
+            ),
+            Flexible(
+              child: StreamBuilder(
+                  stream: pageBloc.activeList(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snap) {
+                    if (snap.hasData) {
+                      List<DocumentSnapshot> docs = snap.data.documents;
+                      List<Detail> goalsList =
+                          pageBloc.detailToList(docList: docs);
+                      if (goalsList.isNotEmpty) {
+                        return buildList(goalsList);
+                      } else {
+                        return Text("data doesn't exist");
+                      }
+                    }
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }),
+            ),
+          ],
+        ));
+  }
+  ListView buildList(List<Detail> goalsList) {
+    return ListView.separated(
+        separatorBuilder: (BuildContext context, int index) => Divider(),
+        itemCount: goalsList.length,
+        itemBuilder: (context, index) {
+          // final id = goalsList[index].description;
+          final detail = goalsList[index]; //catch this active
+          return InkWell(
+            child: ListTile(
+              title: Text(
+                detail.title,///活動名稱
+                textAlign: TextAlign.left,
+                style: TextStyle(fontSize: 24.0,fontWeight: FontWeight.bold,),
+              ),
+              subtitle: Text('主辦單位 : '+detail.club),///社團名稱
+              trailing: Text(
+                detail.statue,///活動狀態
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12.0,
+                ),
+              ),
+            ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ActiveDetailPage(
+                    detail: detail,
+                  ),
+                ),
+              );
+            },
+          );
+        });
+  }
+
+  Widget buildCarousel() {
+    return Container(
+      height: 250.0,
+      width: 500.0,
+      padding: const EdgeInsets.all(8.0),
+      child: Carousel(
+        boxFit: BoxFit.cover,
+        autoplay: true, //自動播放
+        //autoplayDuration: Duration(milliseconds: 100),持續滑動過場時間
+        animationCurve: Curves.fastOutSlowIn,
+        animationDuration: Duration(milliseconds: 1300),
+        dotSize: 6.0,
+        dotIncreasedColor: Colors.blueGrey,
+        dotBgColor: Colors.transparent,
+        dotPosition: DotPosition.bottomCenter,
+        dotVerticalPadding: 10.0,
+        showIndicator: true,
+        indicatorBgPadding: 7.0,
+        images: [
+          NetworkImage(
+              'https://cdn-images-1.medium.com/max/2000/1*GqdzzfB_BHorv7V2NV7Jgg.jpeg'),
+          NetworkImage(
+              'https://cdn-images-1.medium.com/max/2000/1*wnIEgP1gNMrK5gZU7QS0-A.jpeg'),
+        ],
+      ),
+    );
   }
 }
 
-ListView buildList(List<Active> goalsList) {
-  return ListView.separated(
-      separatorBuilder: (BuildContext context, int index) => Divider(),
-      itemCount: goalsList.length,
-      itemBuilder: (context, index) {
-        // final id = goalsList[index].description;
-        final active = goalsList[index]; //catch this active
-        return InkWell(
-          child: ListTile(
-            title: Text(
-              goalsList[index].title,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            subtitle: Text(goalsList[index].description),
-            trailing: Text(
-              goalsList[index].club,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 10.0,
-              ),
-            ),
-            leading: Builder(
-              builder: (BuildContext context) {
-                return IconButton(
-                  icon: const Icon(
-                    Icons.add,
-                  ),
-                  onPressed: () {
-                    ///add to personal list
-                  },
-                );
-              },
-            ),
-          ),
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ActiveDetailPage(
-                  active: active,
-                ),
-              ),
-            );
-          },
-        );
-      });
+Widget buildTextfield() {
+  return TextField(
+    maxLines: 1,
+    decoration: new InputDecoration(
+        hoverColor: Color.fromARGB(255, 50, 50, 200),
+        icon: Icon(
+          Icons.search,
+        ),
+        hintText: ("搜尋"),
+        border: InputBorder.none),
+  );
 }
+
+
+
+Widget buttonGroup() {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceAround,
+    children: <Widget>[
+      buildbutton(),
+      buildbutton(),
+      buildbutton(),
+      buildbutton(),
+    ],
+  );
+}
+
+Widget buildbutton() {
+  return OutlineButton(
+      hoverColor: Colors.grey[800],
+      borderSide: BorderSide(
+        color: Colors.cyan[300],
+      ),
+      child: new Text("#活動"),
+      textColor: Colors.blueGrey,
+      onPressed: () {},
+      shape: new RoundedRectangleBorder(
+          borderRadius: new BorderRadius.circular(40.0)));
+}
+
+// under body
+// Consumer<PageBloc>(
+//     builder: (context, pageBloc, _) =>
+// RefreshIndicator(
+//   onRefresh: () async {
+//     await Future.delayed(Duration(seconds: 1));
+//     await active.increaseNumOfCards(context);
+//   },
+// child:

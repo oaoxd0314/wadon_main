@@ -3,18 +3,22 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class FirestoreProvider {
   Firestore _firestore = Firestore.instance;
 
+  ///home page stream
   Stream<QuerySnapshot> pageList() {
     return _firestore
-        .collection("club")
+        .collection("posts")
+        .document('nkust_IC')///find out something can fetch all club
+        .collection('club_post')
         .snapshots();
   }
 
-
   ///that club's all active
-  Stream<QuerySnapshot> actList(String aid){
+  Stream<QuerySnapshot> actList(String clubid,String actid){
      return _firestore
      .collection("posts")
-     .where("p_id" ,isEqualTo: aid)
+     .document(clubid)
+     .collection('club_post')
+     .where('p_id',isEqualTo: actid )
      .snapshots();
   }
   
@@ -22,18 +26,13 @@ class FirestoreProvider {
     return _firestore
     .collection('club')
     .document(clubid)
+    .collection('club_posts')
+    .document(actid)
     .setData({
       'c_id':clubid,
+      'p_id':actid,
       'posts':{
         'key{'+actid+'}':actid}
-    });
-  }
-
-  Future<void> creat(String documentId,){
-    return _firestore
-    .collection("posts")
-    .document(documentId).updateData({
-      '':'',
     });
   }
 
@@ -64,9 +63,11 @@ Future<void> changeStatue(String actid,String statue){
   .updateData({'statue':statue});
 }
 
-Future<void> uploadAct(String clubid,String name,String title,String content,String clublimit,String numlimit,String actid){
+Future<void> uploadAct(String clubid,String name,String title,String content,String clublimit,String numlimit,String actid,String statue,String localtion, String note){
   return _firestore
   .collection('posts')
+  .document(clubid)
+  .collection('club_post')
   .document(actid)
   .setData({
     'p_id':actid,
@@ -75,9 +76,32 @@ Future<void> uploadAct(String clubid,String name,String title,String content,Str
     'p_name':name,
     'p_title':title,
     'num_limit':numlimit,
-    'club_limit':clublimit
+    'club_limit':clublimit,
+    'statue':statue,
+    'p_localtion':localtion,
+    'p_note':note
+    ///10
   });
 }
+
+
+ void clubListDelete(String activeId, String thatclubid) {
+   _firestore
+   .collection('club')
+   .document(thatclubid)
+   .collection('club_posts')
+   .document(activeId)
+   .delete();
+ }
+
+ void deletePosts(String activeId, String thatclubid) {
+   _firestore
+   .collection('posts')
+   .document(thatclubid)
+   .collection('club_post')
+   .document(activeId)
+   .delete();
+ }
   
 
 

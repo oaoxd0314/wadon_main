@@ -8,6 +8,7 @@ import 'package:rxdart/rxdart.dart';
 import 'dart:async';
 
 class PageBloc with ChangeNotifier {
+  Firestore _firestore = Firestore.instance;
   final _repository = Repository();
   final _activeId = BehaviorSubject<String>();
   final _clubId = BehaviorSubject<String>();
@@ -21,7 +22,7 @@ class PageBloc with ChangeNotifier {
 
   ///that club's all active
   Stream<QuerySnapshot> allact() {
-    return _repository.actList(_activeId.value);
+    return _repository.actList(_clubId.value,_activeId.value);
   }
 
 //dispose open sink
@@ -55,13 +56,21 @@ class PageBloc with ChangeNotifier {
     if(docList != null){
       List<Detail> detaillist=[];
       docList.forEach((document){
-        String club=document.data['p_id'];
+
+        String actid =document.data['p_id'];
+        String club=document.data['club_id'];
         String description=document.data['p_content'];
         String title=document.data['p_title'];
         String pname=document.data['p_name'];
-        Timestamp actend=document.data['act_end'];
-        Timestamp actstart=document.data['act_start'];
-        Detail data =Detail(club,title,description,pname,actend,actstart);
+        String statue = document.data['statue'];
+        String numlimit = document.data['num_limit'];
+        String clublimit = document.data['club_limit'];
+        String localtion = document.data['p_localtion'];
+        String note = document.data['p_note'];
+
+
+
+        Detail data =Detail(actid,club,title,description,pname,statue,numlimit,clublimit,localtion,note);
         detaillist.add(data);
       });
       return detaillist;
@@ -69,8 +78,21 @@ class PageBloc with ChangeNotifier {
     else{
       return null;
     }
-
-
-    
   }
+
+  void remove(String thatclubid) {
+    _repository.clubListDelete(_activeId.value,thatclubid);
+    _repository.deletePosts(_activeId.value,thatclubid);
+    // _repository.deleteFromUserActlist(); (unready to do)
+  }
+
+  
+  // bool judgeUserInActive(){
+  //   for(final i in userlist){
+  //     print('$i');
+  //     if (i == 2){
+  //       return true;
+  //       }
+  //       }
+  //       }
 }
