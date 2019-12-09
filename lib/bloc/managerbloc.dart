@@ -92,7 +92,20 @@ class Managerbloc {
   }
 
   void delete(){
-    
+    ///在pagebloc
+  }
+  void update() {
+    _repository.edit(
+      _clubid.value,
+      _pid.value,
+      _ptitle.value,
+      _pcontent.value,
+      _clublimit.value,
+      _numlimit.value,
+      _plocaltion.value,
+      _pnote.value
+    );
+
   }
 
 
@@ -120,6 +133,8 @@ class Managerbloc {
     await _pnote.drain();
     _pnote.close();
   }
+
+  
 
   
 }

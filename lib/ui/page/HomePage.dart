@@ -180,7 +180,7 @@ Widget buttonGroup() {
   );
 }
 
-Widget buildbutton() {
+Widget buildbutton() {///foreach and build every #hastags from firestore 
   return OutlineButton(
       hoverColor: Colors.grey[800],
       borderSide: BorderSide(

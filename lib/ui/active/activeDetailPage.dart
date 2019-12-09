@@ -164,6 +164,8 @@ class _ActiveDetailPageState extends State<ActiveDetailPage> {
         color: Colors.cyan[800],
         textColor: Colors.white,
         onPressed: () {
+          ///確認
+          
           ///user add act to actlist
           Firestore.instance
               .collection('users')

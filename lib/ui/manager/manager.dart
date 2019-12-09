@@ -47,15 +47,10 @@ class _ManagerState extends State<Manager> {
         child: Column(
           children: <Widget>[
             Row(
-              children: <Widget>[
-                clubINFO()
-              ],
-            ),
-            Row(
-              children: <Widget>[
-                create()
-              ],
-            ),
+            children: <Widget>[
+              Expanded(child: clubINFO()),
+            ],
+          ),
             actlistview()
           ],
         )
@@ -106,7 +101,7 @@ class _ManagerState extends State<Manager> {
                 detail.statue,///活動狀態
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 12.0,
+                  fontSize: 15.0,
                 ),
               ),
               leading: Builder(
@@ -159,16 +154,65 @@ class _ManagerState extends State<Manager> {
     );
   }
 
-  Widget clubINFO(){
-    return Expanded(
-    child:Container(
-      height: 250,
-      width: 500,
+  Widget clubINFO() {
+    return Container(
+      height: 300,
       padding: const EdgeInsets.all(8.0),
-      child: Container(
-        ///build info
+      child: Flex(
+        direction: Axis.vertical,
+        children: <Widget>[
+          Row(
+
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      '活動時間：108年12月25號',
+                      style: TextStyle(fontSize: 15),
+                    ),
+                    Text(
+                      '活動時間：17：30~21：00',
+                      style: TextStyle(fontSize: 15),
+                    ),
+                    Text(
+                      '活動地點：高科大-燕巢校區（管一外空地）',
+                      style: TextStyle(fontSize: 15),
+                    ),
+                    Text(
+                      '活動備注：自備餐具（提倡環保）',
+                      style: TextStyle(fontSize: 15),
+                    ),
+                    Text(
+                      '活動内容：藉由聖誕節的到來，讓資管大家庭的孩子們同聚一堂',
+                      style: TextStyle(fontSize: 15),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      width: 100,
+                      height: 100,
+                      child: CircleAvatar(
+                        backgroundImage: NetworkImage(
+                            'https://cdn-images-1.medium.com/max/2000/1*GqdzzfB_BHorv7V2NV7Jgg.jpeg'),
+                      ),
+                    ),
+                    create(),
+                  ],
+                  ///build info
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
-    )
     );
   }
 

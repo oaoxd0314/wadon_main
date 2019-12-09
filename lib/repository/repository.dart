@@ -19,4 +19,7 @@ class Repository {
   void clubListDelete(String activeId, String thatclubid) => _firestoreProvider.clubListDelete(activeId,thatclubid);
 
   void deletePosts(String activeId, String thatclubid) => _firestoreProvider.deletePosts(activeId,thatclubid);
+
+  void edit(String thatclubid,String activeId,String ptitle, String pcontent, String clublimit, String numlimit, String plocaltion, String pnote) =>
+  _firestoreProvider.edit(thatclubid,activeId,ptitle,pcontent,clublimit,numlimit,plocaltion,pnote);
 }

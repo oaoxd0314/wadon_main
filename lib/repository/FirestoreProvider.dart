@@ -102,6 +102,18 @@ Future<void> uploadAct(String clubid,String name,String title,String content,Str
    .document(activeId)
    .delete();
  }
+
+  edit(String thatclubid,String activeId,String ptitle, String pcontent, String clublimit, String numlimit, String plocaltion, String pnote) {
+    _firestore
+    .collection('posts')
+    .document(thatclubid)
+    .collection('club_posts')
+    .document(activeId)
+    .updateData({
+
+
+    });
+  }
   
 
 

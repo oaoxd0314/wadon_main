@@ -58,6 +58,7 @@ class _CreateState extends State<Create> {
                       child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
+                      Container(margin: EdgeInsets.only(top: 5.0, bottom: 5.0)),
                       clubField(),
                       Container(margin: EdgeInsets.only(top: 5.0, bottom: 5.0)),
                       idField(),
@@ -85,8 +86,6 @@ class _CreateState extends State<Create> {
                       // singupField(),
                       // Container(margin: EdgeInsets.only(top: 5.0, bottom: 5.0)),
                       // singendField(),
-                      // Container(margin: EdgeInsets.only(top: 5.0, bottom: 5.0)),
-                      // statueField(),
                       // Container(margin: EdgeInsets.only(top: 5.0, bottom: 5.0)),
                       submitButton(),
                     ],
@@ -123,7 +122,7 @@ class _CreateState extends State<Create> {
             borderRadius: new BorderRadius.circular(30.0)),
         onPressed: () {
           _bloc.submit();
-          
+          Navigator.pop(context) ;
         });
   }
 
@@ -140,7 +139,7 @@ class _CreateState extends State<Create> {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(15.0),
                 ),
-                hintText: '活動備註',
+                labelText: '活動備註',
                 errorText: snapshot.error),
           );
         });
@@ -159,14 +158,14 @@ Widget plocaltion() {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(15.0),
                 ),
-                hintText: '活動地點',
+                labelText: '活動地點',
                 errorText: snapshot.error),
           );
         });
   }
 
 
-  Widget idField() {
+  Widget idField() {/// 既定格式 每新建一個就+1 ex {ClubID}+{{countNumber}+1}
     return StreamBuilder(
         stream: _bloc.pid,
         builder: (context, AsyncSnapshot<String> snapshot) {
@@ -178,7 +177,7 @@ Widget plocaltion() {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(15.0),
                 ),
-                hintText: '活動ID',
+                labelText: '活動ID',
                 errorText: snapshot.error),
           );
         });
@@ -196,13 +195,13 @@ Widget plocaltion() {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(15.0),
                 ),
-                hintText: '活動名稱',
+                labelText: '活動名稱',
                 errorText: snapshot.error),
           );
         });
   }
 
-  Widget clubField() {
+  Widget clubField() {/// _bloc.changeclubid = club's clubId
     return StreamBuilder(
         stream: _bloc.clubid,
         builder: (context, AsyncSnapshot<String> snapshot) {
@@ -214,7 +213,7 @@ Widget plocaltion() {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(15.0),
                 ),
-                hintText: '這個社團的id',
+                labelText: '這個社團的id',
                 errorText: snapshot.error),
           );
         });
@@ -232,7 +231,7 @@ Widget plocaltion() {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(15.0),
                 ),
-                hintText: '大標',
+                labelText: '大標',
                 errorText: snapshot.error),
           );
         });
@@ -250,7 +249,7 @@ Widget plocaltion() {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(15.0),
                 ),
-                hintText: '形容此活動',
+                labelText: '形容此活動',
                 errorText: snapshot.error),
           );
         });
@@ -268,7 +267,7 @@ Widget plocaltion() {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(15.0),
                 ),
-                hintText: '限制那些社團',
+                labelText: '限制那些社團',
                 errorText: snapshot.error),
           );
         });
@@ -287,7 +286,7 @@ Widget plocaltion() {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(15.0),
                 ),
-                hintText: '限制數量',
+                labelText: '限制數量',
                 errorText: snapshot.error),
           );
         });
@@ -305,7 +304,7 @@ Widget plocaltion() {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(15.0),
                 ),
-                hintText: '活動狀態',
+                labelText: '活動狀態',
                 errorText: snapshot.error),
           );
         });
