@@ -97,7 +97,7 @@ class _EditState extends State<Edit> {
             borderRadius: new BorderRadius.circular(30.0)),
         onPressed: () {
           _bloc.update();
-          // Navigator.pop(context) ;
+          Navigator.pop(context) ;
         });
   }
 

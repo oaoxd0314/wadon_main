@@ -110,8 +110,12 @@ Future<void> uploadAct(String clubid,String name,String title,String content,Str
     .collection('club_posts')
     .document(activeId)
     .updateData({
-
-
+      'p_title':ptitle,
+      'p_content':pcontent,
+      'club_limit':clublimit,
+      'num_limit':numlimit,
+      'p_localtion':plocaltion,
+      'p_note':pnote,
     });
   }
   
