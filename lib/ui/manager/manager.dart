@@ -62,7 +62,7 @@ class _ManagerState extends State<Manager> {
   Widget actlistview(){
     return Flexible(
       child: StreamBuilder(
-        stream: _bloc.pageList() ,//that club's active
+        stream: _pageBloc.clubActList() ,//that club's active
         builder: (BuildContext context,AsyncSnapshot<QuerySnapshot> snap){
           if (snap.hasData) {
                       List<DocumentSnapshot> docs = snap.data.documents;
@@ -116,7 +116,7 @@ class _ManagerState extends State<Manager> {
                       String clubid = 'nkust_IC';
 
                       ///fortemp this will catch that club's id(after singing)
-                      _pageBloc.remove(clubid);
+                      _bloc.delete(clubid,detail.actid);
 
                       ///add to personal list
                     },

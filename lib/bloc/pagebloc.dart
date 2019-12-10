@@ -16,13 +16,19 @@ class PageBloc with ChangeNotifier {
   Function(String) get thisactiveId => _activeId.sink.add;
   Function(String) get clubId => _clubId.sink.add;
 
+///all act
   Stream<QuerySnapshot> activeList() {
     return _repository.pageList();
   }
 
-  ///that club's all active
+  ///active detail
   Stream<QuerySnapshot> allact() {
     return _repository.actList(_clubId.value,_activeId.value);
+  }
+
+  ///single club's active
+  Stream<QuerySnapshot> clubActList() {
+    return _repository.pageList();
   }
 
 //dispose open sink

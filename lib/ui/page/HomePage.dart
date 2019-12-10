@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> {
             ),
             Flexible(
               child: StreamBuilder(
-                  stream: pageBloc.activeList(),
+                  stream: pageBloc.clubActList(),
                   builder: (BuildContext context,
                       AsyncSnapshot<QuerySnapshot> snap) {
                     if (snap.hasData) {

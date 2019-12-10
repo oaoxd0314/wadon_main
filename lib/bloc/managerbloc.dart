@@ -66,9 +66,7 @@ class Managerbloc {
   //   }
   // });
 
-  Stream<QuerySnapshot> pageList() {
-    return _repository.pageList();
-  }
+  /// that
 
   Future<void> submit()async {
     _showProgress.sink.add(true);
@@ -91,8 +89,9 @@ class Managerbloc {
     });
   }
 
-  Future<void> delete()async{
-    ///在pagebloc
+  Future<void> delete(String thatclubid, actid)async{
+    await _repository.clubListDelete(actid,thatclubid);
+    await  _repository.deletePosts(actid,thatclubid);
   }
   Future<void> update() async{
    await _repository.edit(
