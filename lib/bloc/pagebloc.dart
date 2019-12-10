@@ -80,9 +80,9 @@ class PageBloc with ChangeNotifier {
     }
   }
 
-  void remove(String thatclubid) {
-    _repository.clubListDelete(_activeId.value,thatclubid);
-    _repository.deletePosts(_activeId.value,thatclubid);
+  Future<void> remove(String thatclubid) async{
+  await _repository.clubListDelete(_activeId.value,thatclubid);
+  await  _repository.deletePosts(_activeId.value,thatclubid);
     // _repository.deleteFromUserActlist(); (unready to do)
   }
 

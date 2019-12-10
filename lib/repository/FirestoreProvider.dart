@@ -85,8 +85,8 @@ Future<void> uploadAct(String clubid,String name,String title,String content,Str
 }
 
 
- void clubListDelete(String activeId, String thatclubid) {
-   _firestore
+ Future<void> clubListDelete(String activeId, String thatclubid)async {
+  await _firestore
    .collection('club')
    .document(thatclubid)
    .collection('club_posts')
@@ -94,8 +94,8 @@ Future<void> uploadAct(String clubid,String name,String title,String content,Str
    .delete();
  }
 
- void deletePosts(String activeId, String thatclubid) {
-   _firestore
+ Future<void> deletePosts(String activeId, String thatclubid) async{
+  await _firestore
    .collection('posts')
    .document(thatclubid)
    .collection('club_post')
@@ -103,11 +103,11 @@ Future<void> uploadAct(String clubid,String name,String title,String content,Str
    .delete();
  }
 
-  edit(String thatclubid,String activeId,String ptitle, String pcontent, String clublimit, String numlimit, String plocaltion, String pnote) {
-    _firestore
+ Future<void> edit(String thatclubid,String activeId,String ptitle, String pcontent, String clublimit, String numlimit, String plocaltion, String pnote) async{
+  await  _firestore
     .collection('posts')
     .document(thatclubid)
-    .collection('club_posts')
+    .collection('club_post')
     .document(activeId)
     .updateData({
       'p_title':ptitle,

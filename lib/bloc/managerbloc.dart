@@ -70,10 +70,10 @@ class Managerbloc {
     return _repository.pageList();
   }
 
-  void submit() {
+  Future<void> submit()async {
     _showProgress.sink.add(true);
-    _repository.clubadd(_pid.value, _clubid.value);
-    _repository.
+   await _repository.clubadd(_pid.value, _clubid.value);
+   await _repository.
     uploadAct(
       _clubid.value,
       _pname.value,
@@ -91,11 +91,11 @@ class Managerbloc {
     });
   }
 
-  void delete(){
+  Future<void> delete()async{
     ///在pagebloc
   }
-  void update() {
-    _repository.edit(
+  Future<void> update() async{
+   await _repository.edit(
       _clubid.value,
       _pid.value,
       _ptitle.value,

@@ -16,10 +16,10 @@ class Repository {
   Future<void> uploadAct(String clubid,String name,String title,String content,String clublimit,String numlimit,String actid,String statue,String localtion, String note) =>
    _firestoreProvider.uploadAct(clubid,name,title,content,clublimit,numlimit,actid,statue,localtion,note);
 
-  void clubListDelete(String activeId, String thatclubid) => _firestoreProvider.clubListDelete(activeId,thatclubid);
+  Future<void> clubListDelete(String activeId, String thatclubid) => _firestoreProvider.clubListDelete(activeId,thatclubid);
 
-  void deletePosts(String activeId, String thatclubid) => _firestoreProvider.deletePosts(activeId,thatclubid);
+  Future<void> deletePosts(String activeId, String thatclubid) => _firestoreProvider.deletePosts(activeId,thatclubid);
 
-  void edit(String thatclubid,String activeId,String ptitle, String pcontent, String clublimit, String numlimit, String plocaltion, String pnote) =>
+  Future<void> edit(String thatclubid,String activeId,String ptitle, String pcontent, String clublimit, String numlimit, String plocaltion, String pnote) =>
   _firestoreProvider.edit(thatclubid,activeId,ptitle,pcontent,clublimit,numlimit,plocaltion,pnote);
 }
