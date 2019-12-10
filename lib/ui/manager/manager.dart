@@ -62,7 +62,7 @@ class _ManagerState extends State<Manager> {
   Widget actlistview(){
     return Flexible(
       child: StreamBuilder(
-        stream: _pageBloc.clubActList() ,//that club's active
+        stream: _pageBloc.activeList() ,//that club's active
         builder: (BuildContext context,AsyncSnapshot<QuerySnapshot> snap){
           if (snap.hasData) {
                       List<DocumentSnapshot> docs = snap.data.documents;

@@ -103,13 +103,17 @@ Future<void> uploadAct(String clubid,String name,String title,String content,Str
    .delete();
  }
 
- Future<void> edit(String thatclubid,String activeId,String ptitle, String pcontent, String clublimit, String numlimit, String plocaltion, String pnote) async{
+ Future<void> edit(String thatclubid,String activeId,String ptitle, String pcontent, String clublimit, String numlimit, String plocaltion, String pnote,String statue ,String name) async{
   await  _firestore
     .collection('posts')
     .document(thatclubid)
     .collection('club_post')
     .document(activeId)
     .updateData({
+      'p_id':activeId,
+      'club_id':thatclubid,
+      'p_name':name,
+      'statue':statue,
       'p_title':ptitle,
       'p_content':pcontent,
       'club_limit':clublimit,

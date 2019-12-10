@@ -66,12 +66,14 @@ class Managerbloc {
   //   }
   // });
 
-  /// that
+  Stream<QuerySnapshot> pageList() {
+    return _repository.pageList();
+  }
 
-  Future<void> submit()async {
+  void submit() {
     _showProgress.sink.add(true);
-   await _repository.clubadd(_pid.value, _clubid.value);
-   await _repository.
+    _repository.clubadd(_pid.value, _clubid.value);
+    _repository.
     uploadAct(
       _clubid.value,
       _pname.value,
@@ -89,12 +91,12 @@ class Managerbloc {
     });
   }
 
-  Future<void> delete(String thatclubid, actid)async{
-    await _repository.clubListDelete(actid,thatclubid);
-    await  _repository.deletePosts(actid,thatclubid);
+  void delete(String thatclubid,String actid){
+        _repository.clubListDelete(actid,thatclubid);
+    _repository.deletePosts(actid,thatclubid);
   }
-  Future<void> update() async{
-   await _repository.edit(
+  void update() {
+    _repository.edit(
       _clubid.value,
       _pid.value,
       _ptitle.value,
@@ -102,7 +104,9 @@ class Managerbloc {
       _clublimit.value,
       _numlimit.value,
       _plocaltion.value,
-      _pnote.value
+      _pnote.value,
+      _statue.value,
+      _pname.value,
     );
 
   }

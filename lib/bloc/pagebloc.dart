@@ -15,19 +15,17 @@ class PageBloc with ChangeNotifier {
 
   Function(String) get thisactiveId => _activeId.sink.add;
   Function(String) get clubId => _clubId.sink.add;
-
-///all act
+///that club's all active
   Stream<QuerySnapshot> activeList() {
     return _repository.pageList();
   }
 
-  ///active detail
+  ///act detail
   Stream<QuerySnapshot> allact() {
     return _repository.actList(_clubId.value,_activeId.value);
   }
-
-  ///single club's active
-  Stream<QuerySnapshot> clubActList() {
+///all act
+  Stream<QuerySnapshot> allActList() {
     return _repository.pageList();
   }
 
@@ -86,9 +84,9 @@ class PageBloc with ChangeNotifier {
     }
   }
 
-  Future<void> remove(String thatclubid) async{
-  await _repository.clubListDelete(_activeId.value,thatclubid);
-  await  _repository.deletePosts(_activeId.value,thatclubid);
+  void remove(String thatclubid) {
+    _repository.clubListDelete(_activeId.value,thatclubid);
+    _repository.deletePosts(_activeId.value,thatclubid);
     // _repository.deleteFromUserActlist(); (unready to do)
   }
 

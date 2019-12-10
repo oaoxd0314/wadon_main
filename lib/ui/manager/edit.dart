@@ -20,6 +20,8 @@ class _EditState extends State<Edit> {
     _bloc = Provider.of<Managerbloc>(context);
     _bloc.changeclubid(widget.detail.club);
     _bloc.changeid(widget.detail.actid);
+    _bloc.changeststue(widget.detail.statue);
+    _bloc.changepname(widget.detail.pname);
   }
 
   @override
@@ -43,7 +45,7 @@ class _EditState extends State<Edit> {
             },
           );
         }),
-        title: Text('Edit ' + widget.detail.pname + ' data'),
+        title: Text('Edit ' + widget.detail.title + ' data'),
       ),
       body: Container(
           alignment: Alignment.center,

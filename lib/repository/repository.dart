@@ -20,6 +20,6 @@ class Repository {
 
   Future<void> deletePosts(String activeId, String thatclubid) => _firestoreProvider.deletePosts(activeId,thatclubid);
 
-  Future<void> edit(String thatclubid,String activeId,String ptitle, String pcontent, String clublimit, String numlimit, String plocaltion, String pnote) =>
-  _firestoreProvider.edit(thatclubid,activeId,ptitle,pcontent,clublimit,numlimit,plocaltion,pnote);
+  Future<void> edit(String thatclubid,String activeId,String ptitle, String pcontent, String clublimit, String numlimit, String plocaltion, String pnote,String statue,String name) =>
+  _firestoreProvider.edit(thatclubid,activeId,ptitle,pcontent,clublimit,numlimit,plocaltion,pnote,statue,name);
 }
